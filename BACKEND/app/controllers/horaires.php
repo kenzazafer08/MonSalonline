@@ -1,6 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
+
   class horaires extends Controller {
     private $horaires;
     public function __construct(){
@@ -8,6 +7,8 @@ header('Content-Type: application/json');
     }
     
     public function read(){
+      header('Access-Control-Allow-Origin: *');
+      header('Content-Type: application/json');
      $horaires_arr = $this->horaires->getHoraires();
      if($horaires_arr){
        echo json_encode($horaires_arr);

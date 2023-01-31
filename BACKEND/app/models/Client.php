@@ -1,5 +1,5 @@
 <?php
-class Horaire
+class Client
 {
     private $db;
     public function __construct(){
