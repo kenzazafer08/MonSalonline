@@ -5,7 +5,11 @@ class Client
     public function __construct(){
         $this->db = new Database;
     }
-
+    public function getclients(){
+        $this->db->query('SELECT *  from clients');
+        $this->db->execute();
+        return $this->db->resultSet();
+    }
     public function register($data){
         $this->db->query("INSERT INTO clients(first_name , last_name , phone_number, reference) VALUES (:first_name , :last_name , :phone_number, :reference)");
         $this->db->bind("first_name", $data['first_name']);

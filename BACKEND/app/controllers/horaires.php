@@ -5,7 +5,6 @@
     public function __construct(){
      $this->horaires = $this->model('Horaire');
     }
-    
     public function read(){
       header('Access-Control-Allow-Origin: *');
       header('Content-Type: application/json');
@@ -17,8 +16,6 @@
       echo json_encode(
        array('message' => 'no horaires founds')
       );
-    
-     
-    }
+      }
     }
   }

@@ -5,6 +5,19 @@
     public function __construct(){
      $this->client = $this->model('Client');
     }
+    public function read(){
+    header('Access-Control-Allow-Origin: *');
+    header('Content-Type: application/json');
+    $clients_arr = $this->client->getclients();
+    if($clients_arr){
+       echo json_encode($clients_arr);
+    }
+    else{
+      echo json_encode(
+       array('message' => 'no clients founds')
+      );
+    }
+    }
     public function register(){
         header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
