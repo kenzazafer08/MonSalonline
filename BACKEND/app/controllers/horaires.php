@@ -1,5 +1,4 @@
 <?php
-
   class horaires extends Controller {
     private $horaires;
     public function __construct(){

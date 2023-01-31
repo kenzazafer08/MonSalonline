@@ -1,5 +1,4 @@
 <?php
-
   class clients extends Controller {
     private $client;
     public function __construct(){
@@ -55,5 +54,9 @@
         } else {
           echo json_encode(array('message' => 'Something went wrong'));
         }
+    }
+    public function logout(){
+        unset($_COOKIE['login']);
+        echo 'Logged out succesfuly';
     }
 } 

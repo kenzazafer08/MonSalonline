@@ -8,6 +8,5 @@ function randomString($n)
         $index = rand(0, strlen($characters) - 1);
         $str .= $characters[$index];
     }
-
     return $str;
 }
