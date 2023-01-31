@@ -28,4 +28,19 @@
             );
           }
     }
+    public function login(){
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Methods: POST');
+        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+        $data = json_decode(file_get_contents("php://input"));
+        $ref = $data->referrence;
+        if($client = $this->client->login($ref)){
+            setcookie("login",$client->first_name);
+            echo json_encode(array('message' => 'Client Loged in succesfuly',
+            'client' => $_COOKIE["login"]) );
+        } else {
+          echo json_encode(array('message' => 'Something went wrong'));
+        }
+    }
 } 

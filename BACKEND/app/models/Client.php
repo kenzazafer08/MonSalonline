@@ -17,6 +17,17 @@ class Client
             return false;
         }
         return true;
+    }
+    public function login($ref){
+        $this->db->query("SELECT * FROM Clients WHERE reference = :reference");
+        $this->db->bind('reference', $ref);
 
+        $this->db->execute();
+        $row = $this->db->single();
+        if($row){
+           return $row;
+        }else{
+           return null;
+        }
     }
 }    
