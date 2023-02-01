@@ -49,8 +49,7 @@
         $ref = $data->referrence;
         if($client = $this->client->login($ref)){
             setcookie("login",$client->first_name);
-            echo json_encode(array('message' => 'Client Loged in succesfuly',
-            'client' => $_COOKIE["login"]) );
+            echo json_encode(array('message' => 'Client Loged in succesfuly'));
         } else {
           echo json_encode(array('message' => 'Something went wrong'));
         }
@@ -58,5 +57,6 @@
     public function logout(){
         unset($_COOKIE['login']);
         echo 'Logged out succesfuly';
+        die();
     }
 } 

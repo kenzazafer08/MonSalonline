@@ -1,12 +1,12 @@
 <?php
   class Core {
-    protected $currentController = 'Pages';
-    protected $currentMethod = 'index';
+    protected $currentController = 'clients';
+    protected $currentMethod = 'read';
     protected $params = [];
     public function __construct(){
       $url = $this->getUrl();
        if($url == null){
-        $this->currentController = 'pages';
+        $this->currentController = 'clients';
        }
       else if(file_exists('../app/controllers/' . $url[0]. '.php')){
         $this->currentController = $url[0];
