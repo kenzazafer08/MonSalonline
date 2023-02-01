@@ -2,6 +2,10 @@
   class appointements extends Controller {
     private $Appointement;
     public function __construct(){
+      if(!isset($_COOKIE['login'])){
+        echo 'Log In First';
+        die();
+      }
       $this->Appointement = $this->model('Appointement');
     }
     public function read(){
@@ -18,24 +22,24 @@
     }
     }
     public function addappointement(){
-      header('Access-Control-Allow-Origin: *');
-      header('Content-Type: application/json');
-      header('Access-Control-Allow-Methods: POST');
-      header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
-      $data = json_decode(file_get_contents("php://input"));
-      $Appointement = [
-        'client_id' => $data->client_id,
-        'date' => $data->date,
-        'Heure' => $data->Heure
-      ];
-      if($this->Appointement->addappointement($Appointement)) {
-          echo json_encode(
-            array('message' => 'Appointement registered'
-            ));
-        } else {
-          echo json_encode(
-            array('message' => 'Appointement Not registered')
-          );
-        }
-  }
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Methods: POST');
+        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+        $data = json_decode(file_get_contents("php://input"));
+        $Appointement = [
+          'client_id' => $data->client_id,
+          'date' => $data->date,
+          'Heure' => $data->Heure
+        ];
+        if($this->Appointement->addappointement($Appointement)) {
+            echo json_encode(
+              array('message' => 'Appointement registered'
+              ));
+          } else {
+            echo json_encode(
+              array('message' => 'Appointement Not registered')
+            );
+          }
+      }
   }

@@ -1,5 +1,6 @@
 <?php
   class clients extends Controller {
+    
     private $client;
     public function __construct(){
      $this->client = $this->model('Client');
@@ -48,8 +49,8 @@
         $data = json_decode(file_get_contents("php://input"));
         $ref = $data->referrence;
         if($client = $this->client->login($ref)){
-            setcookie("login",$client->first_name);
-            echo json_encode(array('message' => 'Client Loged in succesfuly'));
+          setcookie("login",$client->first_name,time() + 10000, "/", "http://localhost/monsalonito");
+          echo json_encode(array('message' => 'Client Loged in succesfuly'));
         } else {
           echo json_encode(array('message' => 'Something went wrong'));
         }
