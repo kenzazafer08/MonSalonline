@@ -42,4 +42,41 @@
             );
           }
       }
+      public function update($id){
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Methods: PUT');
+        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+        $data = json_decode(file_get_contents("php://input"));
+        $Appointement = [
+          'appointment_id' => $id,
+          'client_id' => $data->client_id,
+          'date' => $data->date,
+          'Heure' => $data->Heure
+        ];
+        if($this->Appointement->updateappointement($Appointement)) {
+            echo json_encode(
+              array('message' => 'Appointement updated'
+              ));
+          } else {
+            echo json_encode(
+              array('message' => 'Appointement Not updated')
+            );
+          }
+      }
+      public function delete($id){
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Methods: DELETE');
+        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+        if($this->Appointement->deleteappointement($id)) {
+            echo json_encode(
+              array('message' => 'Appointement deleted'
+              ));
+          } else {
+            echo json_encode(
+              array('message' => 'Appointement Not deleted')
+            );
+          }
+      }
   }
