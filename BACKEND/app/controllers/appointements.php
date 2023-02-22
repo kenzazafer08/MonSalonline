@@ -8,17 +8,18 @@
       }
       $this->Appointement = $this->model('Appointement');
     }
-    public function read(){
-    header('Access-Control-Allow-Origin: *');
-    header('Content-Type: application/json');
-    $Appointements_arr = $this->Appointement->getappointement();
-    if($Appointements_arr){
-       echo json_encode($Appointements_arr);
+    public function readclient(){
+      header('Access-Control-Allow-Origin: *');
+      header('Content-Type: application/json');
+      header('Access-Control-Allow-Methods: POST');
+      header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+      $id = json_decode(file_get_contents("php://input"));
+      $Appointements_arr = $this->Appointement->getappointement($id->referrence);
+      if($Appointements_arr){
+      echo json_encode($Appointements_arr);
     }
     else{
-      echo json_encode(
-       array('message' => 'no Appointements founds')
-      );
+      echo json_encode(null);
     }
     }
     public function addappointement(){

@@ -22,6 +22,12 @@ class Client
         }
         return true;
     }
+    public function getclient($id){
+        $this->db->query('SELECT *  from clients where reference = :id');
+        $this->db->bind('id',$id);
+        $this->db->execute();
+        return $this->db->single();
+    }
     public function login($ref){
         $this->db->query("SELECT * FROM Clients WHERE reference = :reference");
         $this->db->bind('reference', $ref);

@@ -5,7 +5,7 @@
      $this->horaires = $this->model('Horaire');
     }
     public function read(){
-      header('Access-Control-Allow-Origin: *');
+      header('Access-Control-Allow-Origin:  http://localhost:8080');
       header('Content-Type: application/json');
      $horaires_arr = $this->horaires->getHoraires();
      if($horaires_arr){

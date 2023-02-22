@@ -18,6 +18,22 @@
       );
     }
     }
+    public function readsingle(){
+      header('Access-Control-Allow-Origin: *');
+      header('Content-Type: application/json');
+      header('Access-Control-Allow-Methods: POST');
+      header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+      $id = json_decode(file_get_contents("php://input"));
+      $clients_arr = $this->client->getclient($id->referrence);
+      if($clients_arr){
+         echo json_encode($clients_arr);
+      }
+      else{
+        echo json_encode(
+         array('message' => 'no client found')
+        );
+      }
+      }
     public function register(){
         header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
@@ -49,10 +65,12 @@
         $data = json_decode(file_get_contents("php://input"));
         $ref = $data->referrence;
         if($client = $this->client->login($ref)){
-          setcookie("login",$client->first_name,time() + 10000, "/", "http://localhost/monsalonito");
-          echo json_encode(array('message' => 'Client Loged in succesfuly'));
+          echo json_encode(array('message' => true,
+        'client' => $client->reference,
+      ));
         } else {
-          echo json_encode(array('message' => 'Something went wrong'));
+          echo json_encode(array(array('message' => false,
+          'client' => null)));
         }
     }
     public function logout(){

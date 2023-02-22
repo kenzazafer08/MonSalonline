@@ -25,8 +25,9 @@
     },
   methods : {
     async Signin() {
+      console.log('hi')
       const response = await fetch(
-        "http://localhost/MonSalonito/clients/login/",
+        "http://localhost/MonSalonito/clients/login/" +this.referrence,
         {
           method: "POST",
           headers: {
@@ -36,6 +37,7 @@
       )
       
       const login = await response.json();
+      
       if(login.message == true){
         this.$swal(`Login succesfuly`);
         setCookie('client', login.client, 1);
