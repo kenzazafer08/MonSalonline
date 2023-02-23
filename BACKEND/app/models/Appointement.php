@@ -5,6 +5,17 @@ class Appointement
     public function __construct(){
         $this->db = new Database;
     }
+    public function appointement(){
+        $this->db->query('SELECT *  from appointments ');
+        $this->db->execute();
+        return $this->db->resultSet();
+    }
+    public function singleappointement($id){
+        $this->db->query('SELECT *  from appointments WHERE `appointments`.`appointment_id` = :id');
+        $this->db->bind('id',$id);
+        $this->db->execute();
+        return $this->db->single();
+    }
     public function getappointement($id){
         $this->db->query('SELECT *  from appointments where client_id = :id');
         $this->db->bind('id',$id);

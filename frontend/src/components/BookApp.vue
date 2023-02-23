@@ -55,17 +55,14 @@ export default {
   },
   methods: {
     async getAll(){
-      const url = 'http://localhost/MonSalonito/appointements/readclient/';
+      const url = 'http://localhost/MonSalonito/appointements/read/';
       const response = await fetch(
         url,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            referrence: this.data.client_id
-          }), 
         }
       )
       const user = await response.json(); 

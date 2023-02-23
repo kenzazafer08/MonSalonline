@@ -9,6 +9,30 @@
       header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
       $this->Appointement = $this->model('Appointement');
     }
+    public function read(){
+      header('Access-Control-Allow-Origin: *');
+      header('Content-Type: application/json');
+      header('Access-Control-Allow-Methods: GET');
+      header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Content-Type');
+      $Appointements_arr = $this->Appointement->appointement();
+      if($Appointements_arr){
+      echo json_encode($Appointements_arr);
+    }else{
+      echo json_encode(null);
+    }
+  }
+  public function readsingle($id){
+    header('Access-Control-Allow-Origin: *');
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Methods: GET');
+    header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Content-Type');
+    $Appointements_arr = $this->Appointement->singleappointement($id);
+    if($Appointements_arr){
+    echo json_encode($Appointements_arr);
+  }else{
+    echo json_encode(null);
+  }
+}
     public function readclient(){
       header('Access-Control-Allow-Origin: *');
       header('Content-Type: application/json');
@@ -62,7 +86,7 @@
               ));
           } else {
             echo json_encode(
-              array('message' => 'Appointement Not updated')
+              null
             );
           }
       }
@@ -73,11 +97,11 @@
         header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
         if($this->Appointement->deleteappointement($id)) {
             echo json_encode(
-              array('message' => 'Appointement deleted'
-              ));
+              $message = 'Appointement deleted'
+              );
           } else {
             echo json_encode(
-              array('message' => 'Appointement Not deleted')
+              null
             );
           }
       }
