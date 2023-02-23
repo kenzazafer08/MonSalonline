@@ -73,6 +73,8 @@ export default {
       const day = date.getDay();
       let startHour;
       let endHour;
+      let lunchStart = 12;
+      let lunchEnd = 13;
       if (day >= 1 && day <= 4 || day === 6) { // Du lundi au jeudi et le samedi
         startHour = 9;
         endHour = 20;
@@ -85,10 +87,12 @@ export default {
       }
       this.availableHours = [];
       for (let i = startHour; i <= endHour; i++) {
-        this.availableHours.push( {
+        if(i< lunchStart || i>lunchEnd ){
+          this.availableHours.push( {
           val : `${i.toString().padStart(2, '0')}:00`,
           etas : false
         } );
+      }
       }
       this.availableHours.forEach(item=>{
         this.bookedAppointments.forEach(app => {
