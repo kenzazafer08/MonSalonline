@@ -4,8 +4,8 @@
         <router-link to="/Home"><img src="../assets/logo.png" class="logo"/></router-link>
       </div>
       <div class="flex"> 
-        <h1 class="mx-4 bg-white text-green-800 px-4 py-2 rounded-sm cursor-pointer hover:text-white hover:bg-green-800"><router-link to="/Appointements">{{full_name}}</router-link> </h1>
-      <button  class="mx-12 cursor-pointer bg-white text-green-800 px-4 py-2 rounded-sm hover:text-white hover:bg-green-800" @click="logout()"><i class="fa fa-sign-out"></i></button>
+        <h1 class="mx-4 bg-white text-purple-800 px-4 py-2 rounded-sm cursor-pointer hover:text-white hover:bg-purple-800"><router-link to="/Appointements">{{full_name}}</router-link> </h1>
+      <button  class="mx-12 cursor-pointer bg-white text-purple-800 px-4 py-2 rounded-sm hover:text-white hover:bg-purple-800" @click="logout()"><i class="fa fa-sign-out"></i></button>
       </div>
 </div>
 </template>

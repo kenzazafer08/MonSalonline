@@ -5,7 +5,7 @@
       <div class="mx-12 mt-12 w-1/2 h-2/3 flex flex-col justify-around items-center">   
        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black text-2xl">Treat Yourself to a Luxurious Experience</h1>
         <p class="mb-6 text-lg font-normal text-black lg:text-xl dark:text-gray-400">Welcome to MonSaloLine, where men can get a top-quality haircut, shave, or beard trim in a modern setting. Book your appointment today and let our skilled barbers help you look and feel your best.</p>
-        <a href="#" class="inline-flex items-center px-5 py-3 text-base font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-blue-300 ">
+        <a href="#" class="inline-flex items-center px-5 py-3 text-base font-medium text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 ">
           <router-link to="/Booking"> Book Now </router-link>
             <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </a>

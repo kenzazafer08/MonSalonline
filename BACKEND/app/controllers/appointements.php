@@ -1,18 +1,19 @@
 <?php
   class appointements extends Controller {
+
     private $Appointement;
     public function __construct(){
-      if(!isset($_COOKIE['login'])){
-        echo 'Log In First';
-        die();
-      }
+      header('Access-Control-Allow-Origin: *');
+      header('Content-Type: application/json');
+      header('Access-Control-Allow-Methods: POST');
+      header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
       $this->Appointement = $this->model('Appointement');
     }
     public function readclient(){
       header('Access-Control-Allow-Origin: *');
       header('Content-Type: application/json');
       header('Access-Control-Allow-Methods: POST');
-      header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+      header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Content-Type');
       $id = json_decode(file_get_contents("php://input"));
       $Appointements_arr = $this->Appointement->getappointement($id->referrence);
       if($Appointements_arr){
@@ -23,11 +24,11 @@
     }
     }
     public function addappointement(){
-        header('Access-Control-Allow-Origin: *');
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Methods: POST');
-        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
-        $data = json_decode(file_get_contents("php://input"));
+      header('Access-Control-Allow-Origin: *');
+      header('Content-Type: application/json');
+      header('Access-Control-Allow-Methods: POST');
+      header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+      $data = json_decode(file_get_contents("php://input"));
         $Appointement = [
           'client_id' => $data->client_id,
           'date' => $data->date,
