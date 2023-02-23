@@ -10,7 +10,7 @@ import NavComponent from './NavComponent.vue';
 import FooterComponent from './FooterComponent.vue';
 export default {
   components: { NavComponent ,FooterComponent},
-  name: 'BookComponent',
+  name: 'AppComponent',
 }
 </script>
 <style scoped>

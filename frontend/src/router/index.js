@@ -3,6 +3,7 @@ import SignUp from '../components/SignUp.vue';
 import SignIn from '../components/SignIn.vue';
 import BookComponent from '../components/BookApp.vue';
 import HomeComponent from '../components/HomeComponent.vue';
+import AppComponent from '../components/AppComponent.vue';
 
 const routes = [
   
@@ -15,6 +16,11 @@ const routes = [
     path: '/Booking',
     name: 'BookComponent',
     component: BookComponent,
+  },
+  {
+    path: '/Appointements',
+    name: 'AppComponent',
+    component: AppComponent,
   },
   {
     path: '/Login',
