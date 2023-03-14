@@ -92,17 +92,14 @@ export default {
   },
   methods: {
     async getAll(){
-      const url = 'http://localhost/MonSalonito/appointements/readclient/';
+      const url = 'http://localhost/MonSalonito/appointements/readclient/' + this.data.client_id;
       const response = await fetch(
         url,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            referrence: this.client_id
-          }), 
+          }, 
         }
       )
       const user = await response.json(); 

@@ -50,10 +50,12 @@ export default {
      { val: "", etat: false },
      ],
      bookedAppointments : [],
+     userbookedAppointments : [],
     };
   },
   mounted(){
     this.getAll();
+    this.getApp();
   },
   methods: {
     async getAll(){
@@ -70,7 +72,29 @@ export default {
       const user = await response.json(); 
       this.bookedAppointments = user;
     },
+    async getApp(){
+      console.log(this.data.client_id)
+      const url = 'http://localhost/MonSalonito/appointements/readclient/' + this.data.client_id;
+      const response = await fetch(
+        url,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      const user = await response.json(); 
+      this.userbookedAppointments = user;
+      console.log(this.userbookedAppointments)
+    },
     updateAvailableHours() {
+      this.userbookedAppointments.forEach(app => {
+          if(this.data.Date == app.date){
+            this.data.Date = ''
+            this.$swal("You have already an appointement in this day");
+          }
+        })
       const date = new Date(this.data.Date);
       const day = date.getDay();
       let startHour;
