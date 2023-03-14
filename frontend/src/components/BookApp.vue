@@ -11,14 +11,20 @@
         <input required :min="minDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type="date" v-model="data.Date" @change="updateAvailableHours"/>
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2" for="time">
-          Heure
-        </label>
-        <select required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="time" v-model="data.Heure">
-          <option v-for="hour, index in availableHours" :key="index" :value="hour.val" :disabled="hour.etas" >{{ hour.val }}</option>
-        </select>
-      </div>
-      <div class="flex items-center justify-between">
+            <label class="block text-gray-700 font-bold mb-2" for="time">
+              Appointement
+            </label>
+            <div class="flex flex-wrap">
+              <button v-for="(hour, index) in availableHours"
+                      :key="index"
+                      @click="data.Heure = hour.val"
+                      :class="['m-2 py-2 px-4 border border-transparent font-medium rounded-md shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', 
+                        hour.etas ? 'bg-gray-400 cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
+                  {{ hour.val }}
+              </button>
+            </div>
+          </div>
+                <div class="flex items-center justify-between">
         <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Envoyer
         </button>
@@ -88,10 +94,11 @@ export default {
       this.availableHours = [];
       for (let i = startHour; i <= endHour; i++) {
         if(i< lunchStart || i>lunchEnd ){
-          this.availableHours.push( {
-          val : `${i.toString().padStart(2, '0')}:00`,
-          etas : false
-        } );
+          this.availableHours.push({
+          selected: false,
+          etas: false,
+          val: `${i.toString().padStart(2, '0')}:00`
+        });
       }
       }
       this.availableHours.forEach(item=>{
@@ -104,6 +111,10 @@ export default {
       console.log(this.availableHours);
     },
     async book() {
+      if (!this.data.Heure) {
+        this.$swal("Veuillez sélectionner une heure disponible.");
+        return;
+      }
       const url = 'http://localhost/MonSalonito/appointements/addappointement/';
       const response = await fetch(
         url,

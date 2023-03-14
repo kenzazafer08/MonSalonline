@@ -39,9 +39,15 @@
         <label class="block text-gray-700 font-bold mb-2" for="time">
           Heure
         </label>
-        <select required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="time" v-model="data.Heure">
-          <option v-for="hour, index in availableHours" :key="index" :disabled="hour.etas" >{{ hour.val }}</option>
-        </select>
+        <div class="flex flex-wrap">
+              <button v-for="(hour, index) in availableHours"
+                      :key="index"
+                      @click="data.Heure = hour.val"
+                      :class="['m-2 py-2 px-4 border border-transparent font-medium rounded-md shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', 
+                        hour.etas ? 'bg-gray-400 cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
+                  {{ hour.val }}
+              </button>
+            </div>
       </div>
       <div class="flex items-center justify-between">
         <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" >
@@ -123,7 +129,8 @@ export default {
       this.getAll();
       },
       async editAppointment(appointment){
-         this.currentApp = appointment.appointment_id
+        
+        this.currentApp = appointment.appointment_id
         const url = 'http://localhost/MonSalonito/appointements/readsingle/' + this.currentApp;
         const response = await fetch(
           url,
@@ -136,13 +143,48 @@ export default {
         );
       const user = await response.json(); 
       this.data.Date = user.date
-      this.data.Heure = user.Heure
+      this.data.Heure = this.AvailableHours(appointment)
       console.log(this.data.Date);
       console.log(this.data.Heure);
       this.cool = true;
       },
     updateAvailableHours() {
       const date = new Date(this.data.Date);
+      const day = date.getDay();
+      let startHour;
+      let endHour;
+      let lunchStart = 12;
+      let lunchEnd = 13;
+      if (day >= 1 && day <= 4 || day === 6) { // Du lundi au jeudi et le samedi
+        startHour = 9;
+        endHour = 20;
+      } else if (day === 5) { // Le vendredi
+        startHour = 9;
+        endHour = 22;
+      } else if (day === 0) { // Le dimanche
+        startHour = 9;
+        endHour = 12;
+      }
+      this.availableHours = [];
+      for (let i = startHour; i <= endHour; i++) {
+        if(i< lunchStart || i>lunchEnd ){
+          this.availableHours.push( {
+          val : `${i.toString().padStart(2, '0')}:00`,
+          etas : false
+        } );
+      }
+      }
+      this.availableHours.forEach(item=>{
+        this.bookedAppointments.forEach(app => {
+          if(this.data.Date == app.date && item.val == app.Heure){
+            item.etas = true;
+          }
+        })
+      });
+      console.log(this.availableHours);
+    },
+AvailableHours(Appoinetement) {
+      const date = new Date(Appoinetement.date);
       const day = date.getDay();
       let startHour;
       let endHour;
