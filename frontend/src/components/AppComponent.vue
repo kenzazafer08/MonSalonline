@@ -50,10 +50,10 @@
             </div>
       </div>
       <div class="flex items-center justify-between">
-        <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" >
-          Update
-        </button>
-      </div>
+    <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" @click.prevent="cancelUpdate">
+      Cancel
+    </button>
+  </div>
     </form>
   </div>
         </div>
@@ -182,6 +182,9 @@ export default {
         })
       });
       console.log(this.availableHours);
+    },
+    cancelUpdate(){
+      this.cool = false;
     },
 AvailableHours(Appoinetement) {
       const date = new Date(Appoinetement.date);

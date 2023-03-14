@@ -14,7 +14,7 @@
             <label class="block text-gray-700 font-bold mb-2" for="time">
               Appointement
             </label>
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap" v-if="data.Date">
               <button v-for="(hour, index) in availableHours"
                       :key="index"
                       @click="data.Heure = hour.val"
@@ -23,12 +23,8 @@
                   {{ hour.val }}
               </button>
             </div>
+            <div v-else class="text-center w-full text-purple-400 font-bold">Choose a Date</div>
           </div>
-                <div class="flex items-center justify-between">
-        <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-          Envoyer
-        </button>
-      </div>
     </form>
   </div>
       </div>
