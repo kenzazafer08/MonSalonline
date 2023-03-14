@@ -40,13 +40,13 @@
           Heure
         </label>
         <div class="flex flex-wrap">
-              <button v-for="(hour, index) in availableHours"
+          <div v-for="(hour, index) in availableHours"
                       :key="index"
-                      @click="data.Heure = hour.val"
                       :class="['m-2 py-2 px-4 border border-transparent font-medium rounded-md shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', 
                         hour.etas ? 'bg-red-800 text-white cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
-                  {{ hour.val }}
-              </button>
+                 <button v-if="hour.etas" @click.prevent="cancel()">{{ hour.val }}</button>
+                 <button  v-else @click="data.Heure = hour.val"> {{ hour.val }} </button>
+            </div>
             </div>
       </div>
       <div class="flex items-center justify-between">
@@ -109,6 +109,10 @@ export default {
       }
       this.bookedAppointments = user;
     },
+    cancel(){
+      this.$swal("This appointement is already reserved");
+      this.data.Heure = '';
+    },
     async deleteAppointment(appointment) {
         const url = 'http://localhost/MonSalonito/appointements/delete/' + appointment;
         const response = await fetch(
@@ -126,7 +130,6 @@ export default {
       this.getAll();
       },
       async editAppointment(appointment){
-        
         this.currentApp = appointment.appointment_id
         const url = 'http://localhost/MonSalonito/appointements/readsingle/' + this.currentApp;
         const response = await fetch(

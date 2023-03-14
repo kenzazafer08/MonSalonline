@@ -15,13 +15,13 @@
               Appointement
             </label>
             <div class="flex flex-wrap" v-if="data.Date">
-              <button v-for="(hour, index) in availableHours"
+              <div v-for="(hour, index) in availableHours"
                       :key="index"
-                      @click="data.Heure = hour.val"
                       :class="['m-2 py-2 px-4 border border-transparent font-medium rounded-md shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', 
                         hour.etas ? 'bg-red-800 text-white cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
-                  {{ hour.val }}
-              </button>
+                 <button v-if="hour.etas" @click.prevent="cancel()">{{ hour.val }}</button>
+                 <button  v-else @click="data.Heure = hour.val"> {{ hour.val }} </button>
+            </div>
             </div>
             <div v-else class="text-center w-full text-purple-400 font-bold">Choose a Date</div>
           </div>
@@ -72,8 +72,11 @@ export default {
       const user = await response.json(); 
       this.bookedAppointments = user;
     },
+    cancel(){
+      this.$swal("This appointement is already reserved");
+      this.data.Heure = '';
+    },
     async getApp(){
-      console.log(this.data.client_id)
       const url = 'http://localhost/MonSalonito/appointements/readclient/' + this.data.client_id;
       const response = await fetch(
         url,
@@ -92,7 +95,7 @@ export default {
       this.userbookedAppointments.forEach(app => {
           if(this.data.Date == app.date){
             this.data.Date = ''
-            this.$swal("You have already an appointement in this day");
+            this.$swal("You already have an appointemment this day");
           }
         })
       const date = new Date(this.data.Date);
