@@ -28,7 +28,7 @@
         </table>
         <div v-if="cool" class="form">
           <div class="flex justify-center items-center w-full h-full ">
-    <form class="mt-10 w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="update(this.currentApp)">
+    <form class="mt-10 w-3/4 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="update(this.currentApp)">
       <div class="mb-4">
         <label class="block text-gray-700 font-bold mb-2" for="date">
           Date
@@ -44,7 +44,7 @@
                       :key="index"
                       @click="data.Heure = hour.val"
                       :class="['m-2 py-2 px-4 border border-transparent font-medium rounded-md shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', 
-                        hour.etas ? 'bg-gray-400 cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
+                        hour.etas ? 'bg-red-800 text-white cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
                   {{ hour.val }}
               </button>
             </div>
@@ -252,6 +252,6 @@ AvailableHours(Appoinetement) {
     min-height: 300px;
 }
 .form{
-  height: 300px;
+  height: 500px;
 }
 </style>
