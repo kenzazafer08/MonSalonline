@@ -14,14 +14,25 @@
             <label class="block text-gray-700 font-bold mb-2" for="time">
               Appointement
             </label>
-            <div class="flex flex-wrap" v-if="data.Date">
-              <div v-for="(hour, index) in availableHours"
+            <div  v-if="data.Date">
+              <div class="flex flex-wrap" v-if="day"> 
+                <div v-for="(hour, index) in availableHours"
+                      :key="index"
+                      :class="['m-2 py-2 px-4 border border-transparent font-medium rounded-md shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', 
+                        hour.etas ? 'bg-red-800 text-white cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
+                 <button v-if="hour.etas" @click.prevent="cancelday()">{{ hour.val }}</button>
+                 <button  v-else @click.prevent="cancelday()"> {{ hour.val }} </button>
+            </div>
+              </div> 
+              <div class="flex flex-wrap" v-else> 
+                <div v-for="(hour, index) in availableHours"
                       :key="index"
                       :class="['m-2 py-2 px-4 border border-transparent font-medium rounded-md shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', 
                         hour.etas ? 'bg-red-800 text-white cursor-not-allowed' : 'bg-white shadow-sm shadow-black hover:bg-white']">
                  <button v-if="hour.etas" @click.prevent="cancel()">{{ hour.val }}</button>
                  <button  v-else @click="data.Heure = hour.val"> {{ hour.val }} </button>
             </div>
+              </div>
             </div>
             <div v-else class="text-center w-full text-purple-400 font-bold">Choose a Date</div>
           </div>
@@ -40,6 +51,7 @@ export default {
   name: 'BookComponent',
   data() {
     return {
+      day : false,
      data :{
       client_id : getCookie('client'),
       Date : '',
@@ -76,6 +88,10 @@ export default {
       this.$swal("This appointement is already reserved");
       this.data.Heure = '';
     },
+    cancelday(){
+      this.$swal("You have already an appointement in this day");
+      this.data.Heure = '';
+    },
     async getApp(){
       const url = 'http://localhost/MonSalonito/appointements/readclient/' + this.data.client_id;
       const response = await fetch(
@@ -92,12 +108,14 @@ export default {
       console.log(this.userbookedAppointments)
     },
     updateAvailableHours() {
-      this.userbookedAppointments.forEach(app => {
+      this.day = false;
+      if(this.userbookedAppointments){
+        this.userbookedAppointments.forEach(app => {
           if(this.data.Date == app.date){
-            this.data.Date = ''
-            this.$swal("You already have an appointemment this day");
+            this.day = true;
           }
         })
+      }
       const date = new Date(this.data.Date);
       const day = date.getDay();
       let startHour;
