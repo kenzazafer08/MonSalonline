@@ -24,7 +24,7 @@
   public function readsingle($id){
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Methods: GET');
+    header('Access-Control-Allow-Methods: POST');
     header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Content-Type');
     $Appointements_arr = $this->Appointement->singleappointement($id);
     if($Appointements_arr){
@@ -33,13 +33,12 @@
     echo json_encode(null);
   }
 }
-    public function readclient(){
+    public function readclient($id){
       header('Access-Control-Allow-Origin: *');
       header('Content-Type: application/json');
-      header('Access-Control-Allow-Methods: POST');
+      header('Access-Control-Allow-Methods: GET');
       header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Content-Type');
-      $id = json_decode(file_get_contents("php://input"));
-      $Appointements_arr = $this->Appointement->getappointement($id->referrence);
+      $Appointements_arr = $this->Appointement->getappointement($id);
       if($Appointements_arr){
       echo json_encode($Appointements_arr);
     }
