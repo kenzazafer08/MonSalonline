@@ -16,3 +16,5 @@ Les horaires d’ouverture du salon sont comme suit :
 
 • Le dimanche, de 9h à 12h
 
+<img src="./frontend/src/assets/Capture.jpg">
+
