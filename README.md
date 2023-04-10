@@ -1,5 +1,6 @@
-#MonSalonline coiffure
-##Un salon de coiffure souhaite permettre à ses clients de prendre rendez-vous en ligne
+# MonSalonline coiffure
+
+## Un salon de coiffure souhaite permettre à ses clients de prendre rendez-vous en ligne
 
 Contexte du projet Un salon de coiffure souhaite permettre à ses clients de prendre rendez-vous en ligne. Chaque rendez-vous dure une heure. Le client veut une interface «user friendly» accessible sure toute platforme et qui respecte les bon normes du UX et UI
 
